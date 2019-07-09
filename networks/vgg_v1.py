@@ -292,6 +292,6 @@ class VGG16_ROIS_v1(nn.Module):
 
 if __name__ == '__main__':
     model = vgg16_rois()
-    print model
-    print type(model.features)
-    print dir(model.features)
+    print(model)
+    print(type(model.features))
+    print(dir(model.features))

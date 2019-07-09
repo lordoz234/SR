@@ -3,10 +3,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from torch.autograd import Variable
-from person_pair import person_pair
-from ggnn import GGNN
+from networks.person_pair import person_pair
+from networks.ggnn import GGNN
 from torch.distributions import Bernoulli
-from vgg_v1 import vgg16_rois_v1
+from networks.vgg_v1 import vgg16_rois_v1
 import math
 
 class GRM(nn.Module):

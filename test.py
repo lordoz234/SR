@@ -78,17 +78,17 @@ def get_test_set(data_dir, objects_dir, test_list):
 def main():
 	global args, best_prec1
 	args = parser.parse_args()
-	print args
+	print(args)
 
 	# Create dataloader
-	print '====> Creating dataloader...'
+	print('====> Creating dataloader...')
 	data_dir = args.data
 	test_list = args.testlist
 	objects_dir = args.objects
 	test_loader = get_test_set(data_dir, objects_dir, test_list)
 
 	# load network
-	print '====> Loading the network...'
+	print('====> Loading the network...')
 	model = GRM(num_class=args.num_classes, adjacency_matrix=args.adjacency_matrix)
 	# print model
 
@@ -112,7 +112,7 @@ def main():
 
 	fnames = []
 	if args.write_out:
-		print '------Write out result---'
+		print('------Write out result---')
 		for i in range(args.num_classes):
 			fnames.append(open(args.result_path + str(i) + '.txt', 'w'))
 	validate(test_loader, model, criterion, fnames)
@@ -195,16 +195,16 @@ def validate(val_loader, model, criterion, fnames=[]):
 				fnames[j].write(str(output_np[0][j]) + '\n')
 		#####################################
 
-	print 'tp: ', tp
-	print 'p: ', p
-	print 'r: ', r
+	print('tp: ', tp)
+	print('p: ', p)
+	print('r: ', r)
 	precision = {}
 	recall = {}
 	for k in tp.keys():
 		precision[k] = float(tp[k]) / float(p[k])
 		recall[k] = float(tp[k]) / float(r[k])
-	print 'precision: ', precision
-	print 'recall: ', recall
+	print('precision: ', precision)
+	print('recall: ', recall)
 
 	print(' * Prec@1 {top1.avg[0]:.3f}\t * Loss {loss.avg:.4f}'.format(top1=top1, loss=losses))
 	return top1.avg[0]

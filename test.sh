@@ -16,5 +16,5 @@ ResultPath=""
 ModelPath="Path/SR/models/PISC_fine_level.pth.tar"
 echo $ModelPath
 
-python test.py $ImagePath $ObjectssPath $TestList --weight $ModelPath --adjacency-matrix $AdjMatrix -n $num -b 1 --print-freq 100 --write-out --result-path $ResultPath
+python3 test.py $ImagePath $ObjectssPath $TestList --weight $ModelPath --adjacency-matrix $AdjMatrix -n $num -b 1 --print-freq 100 --write-out --result-path $ResultPath
 

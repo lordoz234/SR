@@ -3,7 +3,7 @@ import torch.nn as nn
 import math
 import torch.nn.functional as F
 
-from resnet_v1 import ResNet, Bottleneck
+from networks.resnet_v1 import ResNet, Bottleneck
 
 class person_pair(nn.Module):
     def __init__(self, num_classes = 3):
