@@ -17,16 +17,15 @@ class GGNN(nn.Module):
 		self.num_classes = num_classes
 		self.num_objects = 80
 		self.cnt = 0
-
+		print(2)
+		print(len(adjacency_matrix))
 		self._in_matrix, self._out_matrix = self.load_nodes(self.adjacency_matrix)
-
+		print(3)
 		self._mask = Variable(torch.zeros(self.num_classes, self.num_objects), requires_grad=False).cuda()
 		tmp = self._in_matrix[0:self.num_classes, self.num_classes:]  # reason in ggnn
 		self._mask[np.where(tmp > 0)] = 1
-
 		self._in_matrix = Variable(torch.from_numpy(self._in_matrix), requires_grad=False).cuda()
 		self._out_matrix = Variable(torch.from_numpy(self._out_matrix), requires_grad=False).cuda()
-
 		self.fc_eq3_w = nn.Linear(2*hidden_state_channel, hidden_state_channel)
 		self.fc_eq3_u = nn.Linear(hidden_state_channel, hidden_state_channel)
 		self.fc_eq4_w = nn.Linear(2*hidden_state_channel, hidden_state_channel)

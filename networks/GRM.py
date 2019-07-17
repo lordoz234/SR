@@ -14,6 +14,7 @@ class GRM(nn.Module):
 				ggnn_hidden_channel = 4098,
 				ggnn_output_channel = 512, time_step = 3,
 				attr_num = 80, adjacency_matrix=''):
+		print(adjacency_matrix)
 		super(GRM, self).__init__()
 		self._num_class = num_class
 		self._ggnn_hidden_channel = ggnn_hidden_channel
@@ -22,11 +23,12 @@ class GRM(nn.Module):
 		self._adjacency_matrix = adjacency_matrix
 		self._attr_num = attr_num
 		self._graph_num = attr_num + num_class
-		
-
+		print(1)
+      
 		self.fg = person_pair(num_class)
 
 		self.full_im_net = vgg16_rois_v1(pretrained=False)
+		print(2)
 
 		self.ggnn = GGNN( hidden_state_channel = self._ggnn_hidden_channel,
 			output_channel = self._ggnn_output_channel,

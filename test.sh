@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # Path to Images
-ImagePath=""
+ImagePath="/Users/vladislavdevlikamov/Desktop/done/SR/image/"
 # Path to object boxes
-ObjectsPath="Path/SR/objects/PISC_objects/"
+ObjectsPath="/Users/vladislavdevlikamov/Desktop/done/SR/objects/faster_bboxes_categories_t3/"
 # Path to test list
-TestList="Path/SR/list/PISC_fine_level_test.txt"
+TestList="/Users/vladislavdevlikamov/Desktop/done/SR/list/PISC_fine_level_test.txt"
 # Path to adjacency matrix
-AdjMatrix="Path/SR/adjacencyMatrix/PISC_fine_level_matrix.npy"
+AdjMatrix="/Users/vladislavdevlikamov/Desktop/done/SR/adjacencyMatrix/PISC_fine_level_matrix.npy"
 # Number of classes
 num=6
 # Path to save scores
-ResultPath=""
+ResultPath="/Users/vladislavdevlikamov/Desktop/done/SR/result/"
 # Path to model
-ModelPath="Path/SR/models/PISC_fine_level.pth.tar"
+ModelPath="/Users/vladislavdevlikamov/Desktop/done/SR/models/"
 echo $ModelPath
 
-python3 test.py $ImagePath $ObjectssPath $TestList --weight $ModelPath --adjacency-matrix $AdjMatrix -n $num -b 1 --print-freq 100 --write-out --result-path $ResultPath
+python3 test.py --adjacency-matrix $AdjMatrix $ModelPath $ObjectsPath $TestList
 
