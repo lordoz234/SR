@@ -52,7 +52,7 @@ class GRM(nn.Module):
 		batch_size = union.size()[0]
 		# full image
 		rois_feature = self.full_im_net(full_im, rois, categories)
-		contextual = Variable(torch.zeros(batch_size, self._graph_num, self._ggnn_hidden_channel), requires_grad=False).cuda()
+		contextual = Variable(torch.zeros(batch_size, self._graph_num, self._ggnn_hidden_channel), requires_grad=False)
 		contextual[:, 0:self._num_class, 0] = 1.
 		contextual[:, self._num_class:, 1] = 1.
 
@@ -60,7 +60,7 @@ class GRM(nn.Module):
 		end_idx = 0
 
 		for b in range(batch_size):
-			cur_rois_num = categories[b, 0].data[0]
+			cur_rois_num = categories[b, 0].item()
 			end_idx += cur_rois_num
 			idxs = categories[b, 1:(cur_rois_num+1)].data.tolist()
 			for i in range(cur_rois_num):

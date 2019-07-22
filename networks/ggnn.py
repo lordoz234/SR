@@ -21,11 +21,10 @@ class GGNN(nn.Module):
 		print(len(adjacency_matrix))
 		self._in_matrix, self._out_matrix = self.load_nodes(self.adjacency_matrix)
 		print(3)
-		self._mask = Variable(torch.zeros(self.num_classes, self.num_objects), requires_grad=False).cuda()
+		self._mask = Variable(torch.zeros(self.num_classes, self.num_objects), requires_grad=False)
 		tmp = self._in_matrix[0:self.num_classes, self.num_classes:]  # reason in ggnn
-		self._mask[np.where(tmp > 0)] = 1
-		self._in_matrix = Variable(torch.from_numpy(self._in_matrix), requires_grad=False).cuda()
-		self._out_matrix = Variable(torch.from_numpy(self._out_matrix), requires_grad=False).cuda()
+		self._in_matrix = Variable(torch.from_numpy(self._in_matrix), requires_grad=False)
+		self._out_matrix = Variable(torch.from_numpy(self._out_matrix), requires_grad=False)
 		self.fc_eq3_w = nn.Linear(2*hidden_state_channel, hidden_state_channel)
 		self.fc_eq3_u = nn.Linear(hidden_state_channel, hidden_state_channel)
 		self.fc_eq4_w = nn.Linear(2*hidden_state_channel, hidden_state_channel)
@@ -55,7 +54,7 @@ class GGNN(nn.Module):
 		batch_out_matrix = self._out_matrix.repeat(batch_size, 1).view(batch_size, node_num, -1)
 
 		# propogation process
-		for t in xrange(self.time_step):
+		for t in range(self.time_step):
 			# eq(2)
 			av = torch.cat((torch.bmm(batch_in_matrix, batch_aog_nodes), torch.bmm(batch_out_matrix, batch_aog_nodes)), 2)
 			av = av.view(batch_size * node_num, -1)

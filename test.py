@@ -104,9 +104,9 @@ def main():
 	
 	model.fg = torch.nn.DataParallel(model.fg)
 	model.full_im_net = torch.nn.DataParallel(model.full_im_net)
-	model.cuda()
 
-	criterion = nn.CrossEntropyLoss().cuda()
+
+	criterion = nn.CrossEntropyLoss()
 	
 	cudnn.benchmark = True
 
@@ -141,21 +141,20 @@ def validate(val_loader, model, criterion, fnames=[]):
 			cur_rois_sum += categories[b,0]
 		assert(bboxes.size(0) == cur_rois_sum), 'Bboxes num must equal to categories num'
 
-		target = target.cuda(async=True)
-		union_var = torch.autograd.Variable(union, volatile=True).cuda()
-		obj1_var = torch.autograd.Variable(obj1, volatile=True).cuda()
-		obj2_var = torch.autograd.Variable(obj2, volatile=True).cuda()
-		bpos_var = torch.autograd.Variable(bpos, volatile=True).cuda()
-		full_im_var = torch.autograd.Variable(full_im, volatile=True).cuda()
-		bboxes_var = torch.autograd.Variable(bboxes, volatile=True).cuda()
-		categories_var = torch.autograd.Variable(categories, volatile=True).cuda()
+		union_var = torch.autograd.Variable(union, volatile=True)
+		obj1_var = torch.autograd.Variable(obj1, volatile=True)
+		obj2_var = torch.autograd.Variable(obj2, volatile=True)
+		bpos_var = torch.autograd.Variable(bpos, volatile=True)
+		full_im_var = torch.autograd.Variable(full_im, volatile=True)
+		bboxes_var = torch.autograd.Variable(bboxes, volatile=True)
+		categories_var = torch.autograd.Variable(categories, volatile=True)
 		
 		target_var = torch.autograd.Variable(target, volatile=True)
 
 		output = model(union_var, obj1_var, obj2_var, bpos_var, full_im_var, bboxes_var, categories_var)
 		
 		loss = criterion(output, target_var)
-		losses.update(loss.data[0], union.size(0))
+		losses.update(loss.item(), union.size(0))
 		prec1 = accuracy(output.data, target)
 		top1.update(prec1[0], union.size(0))
 
@@ -163,12 +162,7 @@ def validate(val_loader, model, criterion, fnames=[]):
 		end = time.time()
 
 		if i % args.print_freq == 0:
-			print('Test: [{0}/{1}]\t'
-					'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
-					'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
-					'Prec@1 {top1.val[0]:.3f} ({top1.avg[0]:.3f})\t'.format(
-						i, len(val_loader), batch_time=batch_time,
-						loss=losses, top1=top1))
+			print(1)
 
 		#####################################
 		## write scores

@@ -56,7 +56,7 @@ class SRDataset(data.Dataset):
 		area_min = 198
 		# area_max = 939736
 		area_m = 939538.
-
+		
 		img = Image.open(os.path.join(self.image_dir, self.names[index])).convert('RGB') # convert gray to rgb
 		box1 = self.box1s[index]
 		obj1 = img.crop((box1[0], box1[1], box1[2], box1[3]))

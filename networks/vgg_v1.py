@@ -250,7 +250,7 @@ class VGG16_ROIS_v1(nn.Module):
         start_idx = 0
         end_idx = 0
         for b in range(bottom.size(0)):
-            end_idx += categories[b,0].data[0]
+            end_idx += categories[b,0].item()
             if max_pool:
                 pre_pool_size = POOLING_SIZE * 2
                 grid = F.affine_grid(theta[start_idx:end_idx], torch.Size((rois[start_idx:end_idx].size(0), 1, pre_pool_size, pre_pool_size)))
